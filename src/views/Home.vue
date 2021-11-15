@@ -1,18 +1,39 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home">  
+<h1>Understanding Setup fn in composition APIS - reactive and refs </h1>
+
+<div v-for="name in matchingNames" :key="name"> {{name}}</div>
+
+<input type="text" v-model="search">
+
+<p>Search term: {{search}}</p>
+
+
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import {ref, computed } from '@vue/reactivity'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
-  }
+  setup(){
+
+   const names = ref(['Saka', 'SmithRow', 'Aoba', 'Odegard', 'Nenny'])
+
+   const search = ref("")
+
+   const matchingNames = computed(() => {
+
+     return names.value.filter((name)=> name.includes(search.value) )
+
+
+   })
+
+    return {names, search, matchingNames}
+
+
+
+  },
 }
 </script>
