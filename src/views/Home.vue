@@ -1,6 +1,6 @@
 <template>
   <div class="home">  
-<h1>Watch </h1>
+<h1>Watch and Watch Effect </h1>
 
 <div v-for="name in matchingNames" :key="name"> {{name}}</div>
 
@@ -8,6 +8,8 @@
 
 <p>Search term: {{search}}</p>
 
+
+<button @click="handleClick"> Stop watch effect</button>
 
   </div>
 </template>
@@ -24,12 +26,12 @@ export default {
 
    const search = ref("")
 
-   watch(search, () => {
+   const stopWatch = watch(search, () => {
      console.log("watch fn ran");
      console.log(search.value);
    });
 
-   watchEffect(() => {
+   const stopEffect = watchEffect(() => {
      console.log("watch effect fn run", search.value)
    })
 
@@ -40,7 +42,14 @@ export default {
 
    })
 
-    return {names, search, matchingNames}
+   const handleClick = () => {
+
+     stopWatch();
+     stopEffect();
+
+   };
+
+    return {names, search, matchingNames, handleClick}
 
 
 
